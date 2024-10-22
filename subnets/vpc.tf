@@ -22,6 +22,12 @@ resource "aws_security_group" "ssh" {
   }
 }
 
+module "aws_security_group" {
+  source = "../aws/aws_security_group"
+
+  
+}
+
 module "aws_launch_template" {
   source = "../aws/aws_launch_template"
 
