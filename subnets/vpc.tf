@@ -23,7 +23,7 @@ resource "aws_security_group" "ssh" {
 }
 
 module "frontend_auto_scaling_group" {
-  source = "../autoscaling_groups"
+  source = "../aws/autoscaling_groups"
 
   autoscaling_group_name = "${var.subnet_name}"
   security_groups        = [aws_security_group.ssh.id]
