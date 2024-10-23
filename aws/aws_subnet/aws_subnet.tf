@@ -1,6 +1,7 @@
 resource "aws_subnet" "my_subnet" {
   vpc_id     = var.vpc_id
   cidr_block = var.subnet_cidr_block
+  availability_zone = var.availability_zone
 }
 
 resource "aws_security_group" "ssh" {
@@ -10,6 +11,20 @@ resource "aws_security_group" "ssh" {
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

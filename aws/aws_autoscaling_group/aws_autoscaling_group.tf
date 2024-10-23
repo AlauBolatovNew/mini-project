@@ -5,7 +5,6 @@ module "aws_launch_template" {
   security_groups        = var.security_groups
 }
 
-
 resource "aws_autoscaling_group" "r_aws_autoscaling_group" {
   desired_capacity = 1
   max_size         = 5
