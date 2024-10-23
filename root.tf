@@ -131,24 +131,6 @@ resource "aws_lb_listener_rule" "reviews_to_frontend" {
   }
 }
 
-resource "aws_route53_zone" "example_zone" {
-  name = aws_lb.test.dns_name
-}
-
-resource "aws_route53_record" "reviews_to_load_balancer" {
-  zone_id = aws_route53_zone.example_zone.zone_id
-  name    = "reviews.${aws_lb.test.dns_name}"
-  type    = "CNAME"
-  ttl     = 5
-
-  weighted_routing_policy {
-    weight = 10
-  }
-
-  set_identifier = "frontend"
-  records        = ["${aws_lb.test.dns_name}/reviews"]
-}
-
 # resource "aws_lb_listener_rule" "reviews-api_to_backend" {
 #   listener_arn = aws_lb_listener.test.arn
 #   priority     = 101

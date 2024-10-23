@@ -19,8 +19,8 @@ RewriteRule ^reviews$ /reviews.html [L]" | sudo tee /var/www/html/.htaccess
 cd /var/www
 sudo chmod 777 html
 cd html
-echo "<html><h1>${var.autoscaling_group_name}</h1></html>" > index.html
-echo "<html><h1>${var.autoscaling_group_name}</h1></html>" > reviews.html
+echo "<html><h1>${var.autoscaling_group_name}_index.html</h1></html>" > index.html
+echo "<html><h1>${var.autoscaling_group_name}_reviews.html</h1></html>" > reviews.html
 sudo systemctl restart apache2
 sudo a2enmod rewrite
 echo "<Directory /var/www/html>
