@@ -5,7 +5,7 @@ resource "aws_launch_template" "aws_insance_template" {
   key_name      = "dontdelete"
 
   network_interfaces {
-    associate_public_ip_address = true
+    associate_public_ip_address = var.associate_public_ip_address
     security_groups             = var.security_groups
   }
 

@@ -5,3 +5,7 @@ variable "autoscaling_group_name" {
 variable "security_groups" {
   type = list(string)
 }
+
+variable "associate_public_ip_address" {
+  type = bool
+}

@@ -1,8 +1,9 @@
 module "aws_launch_template" {
   source = "../../../resources/aws_launch_template"
 
-  autoscaling_group_name = "${var.autoscaling_group_name}-Instance"
-  security_groups        = var.security_groups
+  autoscaling_group_name      = "${var.autoscaling_group_name}-Instance"
+  security_groups             = var.security_groups
+  associate_public_ip_address = var.associate_public_ip_address
 }
 
 module "aws_autoscaling_group" {

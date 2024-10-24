@@ -10,6 +10,6 @@ resource "aws_default_route_table" "aws_default_route_table" {
   }
 
   tags = {
-    Name = "public_route_table"
+    Name = "private_route"
   }
 }
