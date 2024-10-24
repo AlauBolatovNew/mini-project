@@ -8,4 +8,8 @@ resource "aws_default_route_table" "aws_default_route_table" {
       gateway_id = route.value.gateway_id
     }
   }
+
+  tags = {
+    Name = "public_route_table"
+  }
 }

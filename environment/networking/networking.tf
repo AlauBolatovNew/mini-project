@@ -24,28 +24,28 @@ module "aws_default_route_table" {
   }]
 }
 
-module "aws_subnet_a" {
+module "aws_subnet_public_a" {
   source = "../../resources/aws_subnet"
 
-  subnet_name       = "aws_subnet_a"
+  subnet_name       = "aws_subnet_public_a"
   subnet_cidr_block = "10.10.1.0/24"
   vpc_id            = module.aws_vpc.vpc_id
   availability_zone = "us-east-2a"
 }
 
-module "aws_subnet_b" {
+module "aws_subnet_public_b" {
   source = "../../resources/aws_subnet"
 
-  subnet_name       = "aws_subnet_b"
+  subnet_name       = "aws_subnet_public_b"
   subnet_cidr_block = "10.10.2.0/24"
   vpc_id            = module.aws_vpc.vpc_id
   availability_zone = "us-east-2b"
 }
 
-module "aws_subnet_c" {
+module "aws_subnet_public_c" {
   source = "../../resources/aws_subnet"
 
-  subnet_name       = "aws_subnet_c"
+  subnet_name       = "aws_subnet_public_c"
   subnet_cidr_block = "10.10.3.0/24"
   vpc_id            = module.aws_vpc.vpc_id
   availability_zone = "us-east-2c"

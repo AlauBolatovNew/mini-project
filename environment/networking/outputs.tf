@@ -1,5 +1,5 @@
 output "subnets_ids" {
-  value = [module.aws_subnet_a.subnet_id, module.aws_subnet_b.subnet_id, module.aws_subnet_c.subnet_id]
+  value = [module.aws_subnet_public_a.subnet_id, module.aws_subnet_public_b.subnet_id, module.aws_subnet_public_c.subnet_id]
 }
 
 output "vpc_id" {
