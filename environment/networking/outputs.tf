@@ -10,6 +10,6 @@ output "vpc_id" {
   value = module.aws_vpc.vpc_id
 }
 
-output "ssh_id" {
-  value = [module.aws_security_group.ssh_id]
+output "security_groups_id" {
+  value = [module.aws_security_group.security_groups_id]
 }
