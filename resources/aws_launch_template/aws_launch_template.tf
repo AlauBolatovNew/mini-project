@@ -1,4 +1,4 @@
-resource "aws_launch_template" "r_aws_insance_template" {
+resource "aws_launch_template" "aws_insance_template" {
   name_prefix   = "example-template"
   image_id      = "ami-0ea3c35c5c3284d82"
   instance_type = "t2.micro"

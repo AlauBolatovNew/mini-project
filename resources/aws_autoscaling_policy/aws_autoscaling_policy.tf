@@ -1,4 +1,4 @@
-resource "aws_autoscaling_policy" "r_aws_autoscaling_policy" {
+resource "aws_autoscaling_policy" "aws_autoscaling_policy" {
   name                   = var.name
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"

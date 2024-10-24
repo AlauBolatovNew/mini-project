@@ -1,4 +1,4 @@
-resource "aws_default_route_table" "r_aws_default_route_table" {
+resource "aws_default_route_table" "aws_default_route_table" {
   default_route_table_id = var.default_route_table_id
 
   dynamic "route" {

@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_metric_alarm" "r_aws_cloudwatch_metric_alarm" {
+resource "aws_cloudwatch_metric_alarm" "aws_cloudwatch_metric_alarm" {
   alarm_name          = var.alarm_name
   comparison_operator = var.comparison_operator
   evaluation_periods  = "2"
