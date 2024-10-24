@@ -10,7 +10,7 @@ module "aws_internet_gateway" {
   aws_internet_gateway_name = "my_internet_gateway"
 }
 
-resource "aws_route_table" "example" {
+resource "aws_route_table" "public_route" {
   vpc_id = module.aws_vpc.vpc_id
 
   route {
@@ -23,15 +23,12 @@ resource "aws_route_table" "example" {
   }
 }
 
-module "aws_default_route_table" {
-  source = "../../resources/aws_default_route_table"
+resource "aws_route_table" "private_route" {
+  vpc_id = module.aws_vpc.vpc_id
 
-  default_route_table_id = module.aws_vpc.default_route_table_id
-
-  routes = [{
-    cidr_block = module.aws_vpc.cidr_block
-    gateway_id = "local"
-  }]
+  tags = {
+    Name = "private_route"
+  }
 }
 
 module "aws_subnet_private_a" {
@@ -70,9 +67,14 @@ module "aws_subnet_public_a" {
   availability_zone = "us-east-2a"
 }
 
-resource "aws_route_table_association" "a" {
+resource "aws_route_table_association" "private_a" {
+  subnet_id      = module.aws_subnet_private_a.subnet_id
+  route_table_id = aws_route_table.private_route.id
+}
+
+resource "aws_route_table_association" "public_a" {
   subnet_id      = module.aws_subnet_public_a.subnet_id
-  route_table_id = aws_route_table.example.id
+  route_table_id = aws_route_table.public_route.id
 }
 
 module "aws_subnet_public_b" {
@@ -84,9 +86,14 @@ module "aws_subnet_public_b" {
   availability_zone = "us-east-2b"
 }
 
-resource "aws_route_table_association" "b" {
+resource "aws_route_table_association" "private_b" {
+  subnet_id      = module.aws_subnet_private_b.subnet_id
+  route_table_id = aws_route_table.private_route.id
+}
+
+resource "aws_route_table_association" "public_b" {
   subnet_id      = module.aws_subnet_public_b.subnet_id
-  route_table_id = aws_route_table.example.id
+  route_table_id = aws_route_table.public_route.id
 }
 
 module "aws_subnet_public_c" {
@@ -98,9 +105,14 @@ module "aws_subnet_public_c" {
   availability_zone = "us-east-2c"
 }
 
-resource "aws_route_table_association" "c" {
+resource "aws_route_table_association" "private_c" {
+  subnet_id      = module.aws_subnet_private_c.subnet_id
+  route_table_id = aws_route_table.private_route.id
+}
+
+resource "aws_route_table_association" "public_c" {
   subnet_id      = module.aws_subnet_public_c.subnet_id
-  route_table_id = aws_route_table.example.id
+  route_table_id = aws_route_table.public_route.id
 }
 
 module "aws_security_group" {

@@ -13,5 +13,5 @@ module "backend_autoscaling_group" {
   autoscaling_group_name      = "backend"
   vpc_zone_identifier         = var.private_vpc_zone_identifier
   security_groups             = var.security_groups
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 }
