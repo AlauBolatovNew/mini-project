@@ -87,7 +87,7 @@ resource "aws_lb" "test" {
   subnets            = [module.frontend_subnet_a.subnet_id, module.frontend_subnet_b.subnet_id, module.frontend_subnet_c.subnet_id]
 }
 
-resource "aws_lb_listener" "test" {
+resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.test.arn
   port              = "80"
   protocol          = "HTTP"
@@ -110,13 +110,25 @@ resource "aws_lb_target_group" "frontend_autoscaling_group" {
   vpc_id   = module.aws_vpc.vpc_id
 }
 
-resource "aws_autoscaling_attachment" "example" {
+resource "aws_lb_target_group" "backend_autoscaling_group" {
+  name     = "backend-autoscaling-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = module.aws_vpc.vpc_id
+}
+
+resource "aws_autoscaling_attachment" "example_frontend" {
   autoscaling_group_name = module.frontend_autoscaling_group.name
   lb_target_group_arn    = aws_lb_target_group.frontend_autoscaling_group.arn
 }
 
+resource "aws_autoscaling_attachment" "example_backend" {
+  autoscaling_group_name = module.backend_autoscaling_group.name
+  lb_target_group_arn    = aws_lb_target_group.backend_autoscaling_group.arn
+}
+
 resource "aws_lb_listener_rule" "reviews_to_frontend" {
-  listener_arn = aws_lb_listener.test.arn
+  listener_arn = aws_lb_listener.listener.arn
   priority     = 100
 
   action {
@@ -125,24 +137,24 @@ resource "aws_lb_listener_rule" "reviews_to_frontend" {
   }
 
   condition {
-    path_pattern {
-      values = ["/reviews"]
+    host_header {
+      values = ["reviews.alau.site"]
     }
   }
 }
 
-# resource "aws_lb_listener_rule" "reviews-api_to_backend" {
-#   listener_arn = aws_lb_listener.test.arn
-#   priority     = 101
+resource "aws_lb_listener_rule" "reviews_to_backend" {
+  listener_arn = aws_lb_listener.listener.arn
+  priority     = 101
 
-#   action {
-#     type             = "forward"
-#     target_group_arn = module.backend_autoscaling_group.target_group_arn
-#   }
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.backend_autoscaling_group.arn
+  }
 
-#   condition {
-#     path_pattern {
-#       values = ["/reviews-api"]
-#     }
-#   }
-# }
+  condition {
+    host_header {
+      values = ["reviews-api.alau.site"]
+    }
+  }
+}
