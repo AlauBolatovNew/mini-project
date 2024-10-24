@@ -1,5 +1,5 @@
 variable "subnets" {
-  type = list(string)  
+  type = list(string)
 }
 
 variable "security_groups" {

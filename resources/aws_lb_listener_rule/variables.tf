@@ -7,7 +7,7 @@ variable "target_group_arn" {
 }
 
 variable "host_header_values" {
-  type    = list(string)  
+  type = list(string)
 }
 
 variable "priority" {

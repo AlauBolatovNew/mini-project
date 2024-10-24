@@ -1,9 +1,8 @@
-
 module "aws_lb" {
-  source  = "../../resources/aws_lb"
+  source = "../../resources/aws_lb"
 
-  subnets = var.subnets
-  security_groups  = var.security_groups
+  subnets         = var.subnets
+  security_groups = var.security_groups
 }
 
 module "aws_lb_listener" {
